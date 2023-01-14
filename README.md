@@ -11,3 +11,8 @@ An example add-in is in template. Start your project with this folder. Requires 
 The library is in microfx_src. If the library was updated, update you project by replacing lib with a new version compiled by typing `make` in microfx_src.
 
 You can read the header files in lib/include/microfx to see the available functions.
+
+
+
+
+Big thanks to Lephenixnoir for his help !
