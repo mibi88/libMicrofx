@@ -8,6 +8,8 @@
 .global __PrintXY
 .global __locate
 .global __Print
+.global __Bdisp_DrawLineVRAM
+.global __Bdisp_ClearLineVRAM
 /* Keyboard */
 .global __Keyboard_GetPressedTime
 .global __Keyboard_IsKeyPressed
@@ -47,6 +49,10 @@ __locate:
 	syscall(0x807)
 __Print:
 	syscall(0x808)
+__Bdisp_DrawLineVRAM:
+	syscall(0x030)
+__Bdisp_ClearLineVRAM:
+	syscall(0x031)
 /* Keyboard */
 __Keyboard_GetPressedTime:
 	syscall(0x249)

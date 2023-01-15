@@ -29,6 +29,15 @@ in the VRAM.
 
 void srect(int x1, int y1, int x2, int y2);
 
+/* void sline(int x1, int y1, int x2, int y2, int color);
+
+Draws a line with a width of one pixel from (x1, y1) to (x2, y2) in the VRAM of
+color color.
+The available colors are SWHITE or SBLACK.
+*/
+
+void sline(int x1, int y1, int x2, int y2, int color);
+
 /* void spixel(int x, int y, int color);
 
 Set the pixel at (x, y) in the color color in the VRAM.
@@ -93,6 +102,22 @@ void itoa(int n, char *buffer);
 Wait ms miliseconds.
 */
 void tsleep_ms(int ms);
+
+/* void tgetticks(void);
+
+Get 1/128 seconds ticks since midnight.
+*/
+
+void tgetticks(void);
+
+/* int tiselapsed(int start, int ms);
+
+Check if ms where elapsed since start (ticks that you can
+get with tgetticks).
+Returns 1 if ms is elapsed and 0 if it is not.
+*/
+
+int tiselapsed(int start, int ms);
 
 #endif
 
