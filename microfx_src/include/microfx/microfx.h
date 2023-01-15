@@ -39,7 +39,8 @@ void spixel(int x, int y, int color);
 
 /* void stext(int x, int y, char *text);
 
-Puts the text text at (x, y) on the screen using casio default font.
+Puts the text text at (x, y) on the screen using casio
+default font.
 */
 
 void stext(int x, int y, char *text);
@@ -53,8 +54,6 @@ void slocate(int x, int y, char *text);
 
 /******* KEYBOARD *******/
 
-enum {KFAST = 0, KLONG};
-
 /* int kisdown(void);
 
 Returns a positive int if a key is down.
@@ -66,16 +65,10 @@ int kisdown(void);
 
 /!\ Not working /!\
 
-Checks if the key key is down.
-
-int key if 0x(1 byte for the column)(1 byte for the row).
-Based on the syscalls 0x24B/0x24C.
-
-Type is KFAST or KLONG.
-KFAST : Syscall 0x24B is used.
-KLONG : Syscall 0x24C is used.
+Checks if the key key is down or not : returns a positive
+int if the key is down, or 0 if he's not down.
 */
-int kcheck(int key, int type);
+int kcheck(int key);
 
 /* int kgetkey(void);
 

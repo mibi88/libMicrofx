@@ -12,7 +12,4 @@ The library is in microfx_src. If the library was updated, update you project by
 
 You can read the header files in lib/include/microfx to see the available functions.
 
-
-
-
-Big thanks to Lephenixnoir for his help !
+Thanks to Lephenixnoir and Yatis for their help !
