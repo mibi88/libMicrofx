@@ -4,7 +4,7 @@ AR = sh-elf-ar
 OUT = libMicrofx.a
 OUT_DIR = lib
 
-SRC = src/start.c src/syscall.S src/microfx.c
+SRC = src/start.c src/syscall.S src/microfx.c src/img.c
 OBJ = $(SRC:src/%=build/%.o)
 
 BUILD = build
