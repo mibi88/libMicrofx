@@ -24,7 +24,7 @@ $(BIN): $(ELF)
 	sh-elf-objcopy -O binary build/$(ELF) build/$(BIN) -R .bss
 
 $(ELF): $(OBJ) | $(LIB)/
-	$(CC) $< lib/libMicrofx.a -o $(BUILD)/$@ -nostdlib -T lib/fx98xx.ld -ffreestanding -mb -m3 -Os -Wa,--dsp
+	$(CC) $(OBJ) $(LIB)/libMicrofx.a -o $(BUILD)/$@ -nostdlib -T lib/fx98xx.ld -ffreestanding -mb -m3 -Os -Wa,--dsp
 
 $(BUILD)/%.o: src/% | $(BUILD)/
 	$(CC) -c $< -o $@ -Os -Ilib/include/
