@@ -104,11 +104,16 @@ void tsleep_ms(int ms) {
 	_Sleep(ms);
 }
 
-void tgetticks(void) {
-	_RTC_GetTicks();
+int tgetticks(void) {
+	return _RTC_GetTicks();
 }
 
 int tiselapsed(int start, int ms) {
 	return _RTC_Elapsed_ms(start, ms);
 }
 
+/******* CPU *******/
+
+void csleep(void) {
+	__asm__("sleep");
+}

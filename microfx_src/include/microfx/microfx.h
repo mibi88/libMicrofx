@@ -108,7 +108,7 @@ void tsleep_ms(int ms);
 Get 1/128 seconds ticks since midnight.
 */
 
-void tgetticks(void);
+int tgetticks(void);
 
 /* int tiselapsed(int start, int ms);
 
@@ -119,5 +119,14 @@ Returns 1 if ms is elapsed and 0 if it is not.
 
 int tiselapsed(int start, int ms);
 
-#endif
+/******* CPU *******/
 
+/* void csleep(void);
+
+Uses asm sleep instruction.
+Can be used to reduce battery usage of some loops.
+*/
+
+void csleep(void);
+
+#endif
