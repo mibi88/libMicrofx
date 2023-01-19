@@ -23,6 +23,13 @@
 /* Files */
 /* Tools */
 .global _itoa
+.global _malloc
+.global _calloc
+.global _realloc
+.global _free
+/* GUI */
+.global __InputNumber
+.global __InputString
 
 #define syscall(syscall_number) \
 	mov.l   1f, r0 ;\
@@ -76,6 +83,19 @@ __RTC_Elapsed_ms:
 /* Tools */
 _itoa:
 	syscall(0x541)
+_malloc:
+	syscall(0xACD)
+_calloc:
+	syscall(0xE6B)
+_realloc:
+	syscall(0xE6D)
+_free:
+	syscall(0xACC)
+/* GUI */
+__InputNumber:
+	syscall(0x0CC4)
+__InputString:
+	syscall(0x0CC5)
 /* Menu */
 /* Nothing here ... */
 

@@ -3,6 +3,8 @@
 
 #include "keycodes.h"
 
+#define size_t unsigned int
+
 /******* DISPLAY *******/
 
 enum {SWHITE = 0, SBLACK};
@@ -70,12 +72,10 @@ Returns 0 if there is no key down.
 */
 int kisdown(void);
 
-/* int kcheck(int key, int type);
-
-/!\ Not working /!\
+/* int kcheck(int key);
 
 Checks if the key key is down or not : returns a positive
-int if the key is down, or 0 if he's not down.
+int if the key is down, or 0 if the key key is not down.
 */
 int kcheck(int key);
 
@@ -94,6 +94,34 @@ Put a string of the int n in buffer.
 */
 
 void itoa(int n, char *buffer);
+
+/* void *malloc(size_t __size);
+
+returns a pointer of size __size.
+*/
+
+void *malloc(size_t __size);
+
+/* void *calloc(size_t __nmemb, size_t __size);
+
+returns a pointer of size __nmemb * __size.
+*/
+
+void *calloc(size_t __nmemb, size_t __size);
+
+/* void *realloc(void *__ptr, size_t __size);
+
+returns __ptr but changes the size of this pointer to __size.
+*/
+
+void *realloc(void *__ptr, size_t __size);
+
+/* void free(void *__ptr);
+
+Free __ptr.
+*/
+
+void free(void *__ptr);
 
 /******* TIME *******/
 
@@ -128,5 +156,30 @@ Can be used to reduce battery usage of some loops.
 */
 
 void csleep(void);
+
+/******* GUI *******/
+
+enum {GDEC = 0, GHEX};
+
+/* int gnumask(char *message, int maxlen, int type);
+
+Asks for a num that is returned. message contains the
+message that will be displayed when asking for the number.
+maxlen is the maximal length of the input and type can be
+GDEC or GHEX. Set type to GDEC if you want to ask for a
+decimal number or GHEX if you want that the user inputs a
+hexadecimal number.
+*/
+
+int gnumask(char *message, int maxlen, int type);
+
+/* void gstrask(char *buffer, char *message, int maxlen);
+
+Asks for a str that will be in buffer. message contains
+the message that will be displayed when asking for the
+string and maxlen is the maximal length of the input.
+*/
+
+void gstrask(char *buffer, char *message, int maxlen);
 
 #endif
