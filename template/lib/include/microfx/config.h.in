@@ -1,0 +1,6 @@
+#ifndef MICROFX_CONFIG_H
+#define MICROFX_CONFIG_H
+
+#define EX_VERSION "@libMicrofx_VERSION@"
+
+#endif
