@@ -30,6 +30,20 @@
 .global _realloc
 .global _free
 .global __LongToAscHex
+/* Tools - str/mem */
+.global _memcmp
+.global _memcpy
+.global _memset
+.global _strcat
+.global _strcmp
+.global _strlen
+.global _strncat
+.global _strncmp
+.global _strncpy
+.global _strrchr
+.global _strchr
+.global _strstr
+.global _memmove
 /* GUI */
 .global __InputNumber
 .global __InputString
@@ -101,6 +115,32 @@ _free:
 	syscall(0xACC)
 __LongToAscHex:
 	syscall(0x467)
+_memcmp:
+	syscall(0xACE)
+_memcpy:
+	syscall(0xACF)
+_memset:
+	syscall(0xAD0)
+_strcat:
+	syscall(0xAD4)
+_strcmp:
+	syscall(0xAD5)
+_strlen:
+	syscall(0xAD6)
+_strncat:
+	syscall(0xAD7)
+_strncmp:
+	syscall(0xAD8)
+_strncpy:
+	syscall(0xAD9)
+_strrchr:
+	syscall(0xADA)
+_strchr:
+	syscall(0xE6E)
+_strstr:
+	syscall(0xE6F)
+_memmove:
+	syscall(0xE6C)
 /* GUI */
 __InputNumber:
 	syscall(0x0CC4)
