@@ -10,6 +10,8 @@
 .global __Print
 .global __Bdisp_DrawLineVRAM
 .global __Bdisp_ClearLineVRAM
+.global __PrintMiniSd
+.global __DisplayMessageBox
 /* Keyboard */
 .global __Keyboard_GetPressedTime
 .global __Keyboard_IsKeyPressed
@@ -27,9 +29,11 @@
 .global _calloc
 .global _realloc
 .global _free
+.global __LongToAscHex
 /* GUI */
 .global __InputNumber
 .global __InputString
+.global __DisplayFKeyIcon
 
 #define syscall(syscall_number) \
 	mov.l   1f, r0 ;\
@@ -60,6 +64,10 @@ __Bdisp_DrawLineVRAM:
 	syscall(0x030)
 __Bdisp_ClearLineVRAM:
 	syscall(0x031)
+__PrintMiniSd:
+	syscall(0xC4F)
+__DisplayMessageBox:
+	syscall(0x0901)
 /* Keyboard */
 __Keyboard_GetPressedTime:
 	syscall(0x249)
@@ -91,11 +99,15 @@ _realloc:
 	syscall(0xE6D)
 _free:
 	syscall(0xACC)
+__LongToAscHex:
+	syscall(0x467)
 /* GUI */
 __InputNumber:
 	syscall(0x0CC4)
 __InputString:
 	syscall(0x0CC5)
+__DisplayFKeyIcon:
+	syscall(0x04D1)
 /* Menu */
 /* Nothing here ... */
 

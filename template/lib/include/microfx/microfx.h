@@ -48,13 +48,13 @@ The available colors are SWHITE or SBLACK.
 
 void spixel(int x, int y, int color);
 
-/* void stext(int x, int y, char *text);
+/* void stext(int x, int y, char *text, int color);
 
 Puts the text text at (x, y) on the screen using casio
-default font.
+default font with color color.
 */
 
-void stext(int x, int y, char *text);
+void stext(int x, int y, char *text, int color);
 
 /* void slocate(int x, int y, char *text);
 
@@ -62,6 +62,29 @@ Works like the Locate function of CASIO Basic.
 */
 
 void slocate(int x, int y, char *text);
+
+/* void saddlocate(char *text);
+
+Continues the text displayed with slocate, can be used
+multiple times after a locate.
+*/
+
+void saddlocate(char *text);
+
+/* void sgoto(int x, int y);
+
+Moves the position where you can add text with saddlocate.
+*/
+
+void sgoto(int x, int y);
+
+/* void stextmini(int x, int y, char *text);
+
+Works like stext, but here the font is PrintMini and you cannot
+set the color.
+*/
+
+void stextmini(int x, int y, char *text);
 
 /******* KEYBOARD *******/
 
@@ -123,6 +146,14 @@ Free __ptr.
 
 void free(void *__ptr);
 
+/* void itohex(char *buffer, int value, int len);
+
+Puts the hex representation of value into buffer. The hex number
+will have the size len.
+*/
+
+void itohex(char *buffer, int value, int len);
+
 /******* TIME *******/
 
 /* void tsleep_ms(int ms);
@@ -181,5 +212,20 @@ string and maxlen is the maximal length of the input.
 */
 
 void gstrask(char *buffer, char *message, int maxlen);
+
+/* void simage(int sx, int sy, int w, int h, unsigned char *img, int mode);
+
+Draws an fkey from a Sprite Coder string that is in img,
+at fkey position pos.
+*/
+
+void gfkeyset(int pos, unsigned char *img);
+
+/* void gmessagebox(int height, char *message);
+
+Draws a message box of height height with that contains message.
+*/
+
+void gmessagebox(int height, char *message);
 
 #endif

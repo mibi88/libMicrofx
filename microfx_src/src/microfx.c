@@ -13,6 +13,8 @@ void _locate(int x, int y);
 void _Print(unsigned char *text);
 void _Bdisp_DrawLineVRAM(int x1, int y1, int x2, int y2);
 void _Bdisp_ClearLineVRAM(int x1, int y1, int x2, int y2);
+void _PrintMiniSd(int x, int y, unsigned char *text, int color);
+void _DisplayMessageBox(int height, unsigned char *message);
 
 /* Microfx */
 
@@ -40,13 +42,29 @@ void sline(int x1, int y1, int x2, int y2, int color) {
 	}
 }
 
-void stext(int x, int y, char *text) {
-	_PrintXY(x, y, (unsigned char*)text, 0);
+void stext(int x, int y, char *text, int color) {
+	_PrintXY(x, y, (unsigned char*)text, !color);
 }
 
 void slocate(int x, int y, char *text) {
 	_locate(x, y);
 	_Print((unsigned char*)text);
+}
+
+void saddlocate(char *text) {
+	_Print((unsigned char*)text);
+}
+
+void sgoto(int x, int y) {
+	_locate(x, y);
+}
+
+void stextmini(int x, int y, char *text) {
+	_PrintMiniSd(x, y, (unsigned char*)text, 0);
+}
+
+void gmessagebox(int height, char *message) {
+	_DisplayMessageBox(height, (unsigned char*)message);
 }
 
 /******* KEYBOARD *******/
@@ -90,6 +108,18 @@ int kgetkey(void){
 	return (buffer[1] & 0x0F) * 10 + ((buffer[2] & 0xF0 ) >> 4);
 }
 
+/******* Tools *******/
+
+/* Syscalls */
+
+int _LongToAscHex(int value, char *dest, int digits);
+
+/* Microfx */
+
+void itohex(char *buffer, int value, int len) {
+	_LongToAscHex(value, buffer, len);
+}
+
 /******* Time *******/
 
 /* Syscalls */
@@ -126,6 +156,7 @@ void csleep(void) {
 
 int _InputNumber(unsigned char *heading, int maxlen, int mode);
 int _InputString(unsigned char *buffer, unsigned char *heading, int maxlen);
+void _DisplayFKeyIcon(int FKeyPos, unsigned char *pBitmap);
 
 /* Microfx */
 
@@ -135,4 +166,8 @@ int gnumask(char *message, int maxlen, int type) {
 
 void gstrask(char *buffer, char *message, int maxlen) {
 	_InputString((unsigned char *)buffer, (unsigned char *)message, maxlen);
+}
+
+void gfkeyset(int pos, unsigned char *img) {
+	_DisplayFKeyIcon(pos, img);
 }
