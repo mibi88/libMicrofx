@@ -27,7 +27,7 @@ $(ELF): $(OBJ) | $(LIB)/
 	$(CC) $(OBJ) $(LIB)/libMicrofx.a -o $(BUILD)/$@ -nostdlib -T lib/fx98xx.ld -ffreestanding -mb -m3 -Os -Wa,--dsp
 
 $(BUILD)/%.o: src/% | $(BUILD)/
-	$(CC) -c $< -o $@ -Os -Ilib/include/
+	$(CC) -c $< -o $@ -Os -Ilib/include/ -std=c89
 
 .PRECIOUS: %/
 
