@@ -154,13 +154,6 @@ will have the size len.
 
 void itohex(char *buffer, int value, int len);
 
-/* string.h functions */
-
-/* /!\ TODO : Add doc. /!\ */
-
-int memcmp(void const *__s1, void const *__s2, size_t __n);
-void *memcpy(void *__dest, void const *__src, size_t __n);
-
 /******* TIME *******/
 
 /* void tsleep_ms(int ms);
