@@ -7,6 +7,9 @@
 
 /******* DISPLAY *******/
 
+#define SWIDTH 128
+#define SHEIGHT 64
+
 enum {SWHITE = 0, SBLACK};
 
 /* void sclear(void);

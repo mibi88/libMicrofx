@@ -27,7 +27,9 @@ void supdate() {
 }
 
 void spixel(int x, int y, int color) {
-	_Bdisp_SetPoint_VRAM(x, y, color);
+	if(x>=0 && x<SWIDTH && y>=0 && y<SHEIGHT){
+		_Bdisp_SetPoint_VRAM(x, y, color);
+	}
 }
 
 void srect(int x1, int y1, int x2, int y2) {
