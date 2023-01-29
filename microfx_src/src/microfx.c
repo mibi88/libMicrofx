@@ -73,7 +73,6 @@ void gmessagebox(int height, char *message) {
 
 /* Syscalls */
 
-short _Keyboard_GetPressedTime(void);
 int _Keyboard_KeyDown(void);
 int _Keyboard_PRGM_GetKey(unsigned char* buffer);
 
@@ -129,6 +128,7 @@ void itohex(char *buffer, int value, int len) {
 void _Sleep(int delay_ms);
 int _RTC_GetTicks(void);
 int _RTC_Elapsed_ms(int start_value, int duration_in_ms);
+void _RTC_Reset(unsigned int mode);
 
 /* Microfx */
 
@@ -142,6 +142,10 @@ int tgetticks(void) {
 
 int tiselapsed(int start, int ms) {
 	return _RTC_Elapsed_ms(start, ms);
+}
+
+void treset(void){
+	_RTC_Reset(1);
 }
 
 /******* CPU *******/

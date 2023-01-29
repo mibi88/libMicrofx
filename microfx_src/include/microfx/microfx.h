@@ -181,6 +181,13 @@ Returns 1 if ms is elapsed and 0 if it is not.
 
 int tiselapsed(int start, int ms);
 
+/* void treset(void);
+
+Resets RTC.
+*/
+
+void treset(void);
+
 /******* CPU *******/
 
 /* void csleep(void);

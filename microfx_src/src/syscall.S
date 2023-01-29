@@ -13,15 +13,13 @@
 .global __PrintMiniSd
 .global __DisplayMessageBox
 /* Keyboard */
-.global __Keyboard_GetPressedTime
-.global __Keyboard_IsKeyPressed
-.global __Keyboard_IsKeyPressed_fast
 .global __Keyboard_KeyDown
 .global __Keyboard_PRGM_GetKey
 /* Time */
 .global __Sleep
 .global __RTC_GetTicks
 .global __RTC_Elapsed_ms
+.global __RTC_Reset
 /* Files */
 /* Tools */
 .global _itoa
@@ -83,12 +81,6 @@ __PrintMiniSd:
 __DisplayMessageBox:
 	syscall(0x0901)
 /* Keyboard */
-__Keyboard_GetPressedTime:
-	syscall(0x249)
-__Keyboard_IsKeyPressed:
-	syscall(0x24C)
-__Keyboard_IsKeyPressed_fast:
-	syscall(0x24B)
 __Keyboard_KeyDown:
 	syscall(0x24D)
 __Keyboard_PRGM_GetKey:
@@ -100,6 +92,8 @@ __RTC_GetTicks:
 	syscall(0x03B)
 __RTC_Elapsed_ms:
 	syscall(0x03C)
+__RTC_Reset:
+	syscall(0x039)
 /* Files */
 /* Nothing here ... */
 /* Tools */
