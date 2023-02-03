@@ -20,6 +20,10 @@
 .global __RTC_GetTicks
 .global __RTC_Elapsed_ms
 .global __RTC_Reset
+.global __Timer_Install
+.global __Timer_Deinstall
+.global __Timer_Start
+.global __Timer_Stop
 /* Files */
 /* Tools */
 .global _itoa
@@ -94,6 +98,14 @@ __RTC_Elapsed_ms:
 	syscall(0x03C)
 __RTC_Reset:
 	syscall(0x039)
+__Timer_Install:
+	syscall(0x0118)
+__Timer_Deinstall:
+	syscall(0x0119)
+__Timer_Start:
+	syscall(0x011A)
+__Timer_Stop:
+	syscall(0x011B)
 /* Files */
 /* Nothing here ... */
 /* Tools */

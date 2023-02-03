@@ -7,6 +7,8 @@ OUT_DIR = lib
 SRC = src/start.c src/syscall.S src/microfx.c src/img.c
 OBJ = $(SRC:src/%=build/%.o)
 
+CFLAGS = -Os -Wall -Wextra -Wpedantic -Werror -std=c89
+
 BUILD = build
 
 all: $(OBJ) | $(OUT_DIR)/
@@ -15,7 +17,7 @@ all: $(OBJ) | $(OUT_DIR)/
 	cp src/fx98xx.ld $(OUT_DIR)/
 
 $(BUILD)/%.o: src/% | $(BUILD)/
-	$(CC) -c $< -o $@ -Os
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 .PRECIOUS: %/
 

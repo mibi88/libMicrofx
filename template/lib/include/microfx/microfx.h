@@ -188,6 +188,37 @@ Resets RTC.
 
 void treset(void);
 
+/* int tinittimer(int ms, void (*callback)(void));
+
+Initializes a timer that call callback each ms miliseconds.
+The timers have a precision of 25 ms.
+
+Returns the id of the timer.
+*/
+
+int tinittimer(int ms, void (*callback)(void));
+
+/* void tfreetimer(int id);
+
+Free the timer id.
+*/
+
+void tfreetimer(int id);
+
+/* void tstarttimer(int id);
+
+Start the timer id.
+*/
+
+void tstarttimer(int id);
+
+/* void tstoptimer(int id);
+
+Stop the timer id.
+*/
+
+void tstoptimer(int id);
+
 /******* CPU *******/
 
 /* void csleep(void);
