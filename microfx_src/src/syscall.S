@@ -25,6 +25,12 @@
 .global __Timer_Start
 .global __Timer_Stop
 /* Files */
+.global __Bfile_DeleteEntry
+.global __Bfile_Create
+.global __Bfile_Write
+.global __Bfile_Open
+.global __Bfile_Read
+.global __Bfile_Close
 /* Tools */
 .global _itoa
 .global _malloc
@@ -107,7 +113,20 @@ __Timer_Start:
 __Timer_Stop:
 	syscall(0x011B)
 /* Files */
-/* Nothing here ... */
+__Bfile_DeleteEntry:
+	mov #0, r5
+	syscall(0x0439)
+__Bfile_Create:
+	syscall(0x434)
+__Bfile_Write:
+	syscall(0x435)
+__Bfile_Open:
+	mov #0, r6
+	syscall(0x42C)
+__Bfile_Read:
+	syscall(0x432)
+__Bfile_Close:
+	syscall(0x042D)
 /* Tools */
 _itoa:
 	syscall(0x541)
