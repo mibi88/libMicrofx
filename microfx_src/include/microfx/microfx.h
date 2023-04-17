@@ -363,4 +363,6 @@ int mread(int fd, void *data, int size, int whence);
 Close the file descriptor fd.
 */
 
+int mclose(int fd);
+
 #endif
