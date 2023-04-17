@@ -268,6 +268,64 @@ void gmessagebox(int height, char *message);
 
 /******* Memory *******/
 
+/* File structure */
+
+typedef struct {
+    int fd; /* The file descriptor of the file */
+    int fpos; /* The position in the file (0 after mopen) */
+    int error; /* Positive if there was an error, NULL if there was no one */
+    int out; /* There was an error if this value is negative */
+} MFile;
+
+/* Errors */
+
+enum {
+    MODDSIZEWRITE         = 1,
+    MBF_ENTRYNOTFOUND     = -1,
+    MBF_ILLEGALPARAM      = -2,
+    MBF_ILLEGALPATH       = -3,
+    MBF_DEVICEFULL        = -4,
+    MBF_ILLEGALDEVICE     = -5,
+    MBF_ILLEGALFS         = -6,
+    MBF_ILLEGALSYS        = -7,
+    MBF_ACCESSDENIED      = -8,
+    MBF_ALREADYLOCKED     = -9,
+    MBF_ILLEGALTASKID     = -10,
+    MBF_PERMISSIONERROR   = -11,
+    MBF_ENTRYFULL         = -12,
+    MBF_ALREADYEXISTS     = -13,
+    MBF_READONLYFILE      = -14,
+    MBF_ILLEGALFILTER     = -15,
+    MBF_ENUMEND           = -16,
+    MBF_DEVICECHANGED     = -17,
+    MBF_NOTRECORDFILE     = -18,
+    MBF_ILLEGALSEEKPOS    = -19,
+    MBF_ILLEGALBLOCKFILE  = -20,
+    MBF_NOSUCHDEVICE      = -21,
+    MBF_EOF               = -22,
+    MBF_NOTMOUNTDEVICE    = -23,
+    MBF_NOTUNMOUNTDEVICE  = -24,
+    MBF_CANNOTLOCKSYS     = -25,
+    MBF_RECORDNOTFOUND    = -26,
+    MBF_NOTDUALRECORDFILE = -27,
+    MBF_NOALARMSUPPORT    = -28,
+    MBF_CANNOTADDALARM    = -29,
+    MBF_FILEFINDUSED      = -30,
+    MBF_DEVICEERROR       = -31,
+    MBF_SYSTEMNOTLOCKED   = -32,
+    MBF_DEVICENOTFOUND    = -33,
+    MBF_FILETYPEMISMATCH  = -34,
+    MBF_NOTEMPTY          = -35,
+    MBF_BROKENSYSTEMDATA  = -36,
+    MBF_MEDIANOTREADY     = -37,
+    MBF_TOOMANYALARMS     = -38,
+    MBF_SAMEALARMEXISTS   = -39,
+    MBF_ACCESSSWAPAREA    = -40,
+    MBF_MULTIMEDIACARD    = -41,
+    MBF_COPYPROTECTION    = -42,
+    MBF_ILLEGALFILEDATA   = -43
+};
+
 /* File types */
 
 enum {
@@ -293,7 +351,15 @@ enum {
 
 /* Prototypes */
 
-/* IMPORTANT NOTE : The CASIOWIN/Fugue compatibility is made automatically. */
+/* IMPORTANT NOTES :
+
+- The CASIOWIN/Fugue compatibility is made automatically.
+- To see if there is an error, check if the int error in the MFile struct. If
+  error is not NULL, there was an error. To get the error code just get the
+  output of the function.
+- To get the output of a function, read the int out in the MFile struct.
+- Errors are defined later on.
+*/
 
 /* int mfugue(void);
 
@@ -324,7 +390,7 @@ Returns a negative int if there was an error.
 
 int mcreate(const char *filename, int type, int size);
 
-/* int mopen(const char *filename, int mode);
+/* MFile mopen(const char *filename, int mode);
 
 Opens the file filename with mode mode.
 Available modes are :
@@ -334,35 +400,51 @@ Available modes are :
 - MSHARE : (I don't know what it is XD) Opens the file in shared mode.
 - MRWS : Opens the file for reading, writing and in shared mode.
 As always the filename is for UNIX and is fixed for the calc.
-Returns an error code or the file descriptor of this file.
+The error, if there was one, is as I described it in "IMPORTANT NOTES" above,
+stored in the MFile struct file.
 */
 
-int mopen(const char *filename, int mode);
+MFile mopen(const char *filename, int mode);
 
-/* int mwrite(int fd, const void *data, int size);
+/* void mwrite(MFile *file, const void *data, int size);
 
-Writes size bytes of data to the file of file descriptor fd that you can get
-with mopen.
-Return a negative value if there was an error.
+Writes size bytes of data to the file of MFile struct file that you can
+initialise with mopen.
+As always, if there was an error, she's stored in MFile.
 */
 
-int mwrite(int fd, const void *data, int size);
+void mwrite(MFile *file, const void *data, int size);
 
-/* int mread(int fd, void *data, int size, int whence);
+/* void mread(MFile *file, void *data, int size, int whence);
 
-Read size bytes of the file of fd and put them into data. Set whence to a
-positive value to set where mread should start reading, or to MRCONTINUE to
-continue reading from the actual position.
-Return a negative value if there was an error.
+Read size bytes of the file of the MFile struct file and put them into data. Set
+whence to a positive value to set where mread should start reading, or to
+MRCONTINUE to continue reading from the current position.
+As always, if there was an error, she's stored in MFile.
 */
 
-int mread(int fd, void *data, int size, int whence);
+void mread(MFile *file, void *data, int size, int whence);
 
-/* int mclose(int fd);
+/* void mclose(MFile *file);
 
-Close the file descriptor fd.
+Close the file MFile.
 */
 
-int mclose(int fd);
+void mclose(MFile *file);
+
+/* void mseek(MFile *file, int pos);
+
+Jump to the position pos in the file. No checks are made if the position is
+valid. Pass the MFile struct of the file.
+*/
+
+void mseek(MFile *file, int pos);
+
+/* void msize(MFile *file);
+
+Puts the size of the file into out of file. Pass the MFile struct of the file.
+*/
+
+void msize(MFile *file);
 
 #endif
