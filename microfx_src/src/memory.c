@@ -12,6 +12,7 @@ int _Bfile_Write(int fd, const void *data, int size);
 int _Bfile_Open(const unsigned short int *filename, int mode);
 int _Bfile_Read(int fd, void *data, int size, int whence);
 int _Bfile_Close(int fd);
+int _BFile_Size(int fd);
 
 /* Microfx */
 
@@ -57,29 +58,65 @@ int mcreate(const char *filename, int type, int size) {
 	return out;
 }
 
-int mopen(const char *filename, int mode) {
-	int out;
+MFile mopen(const char *filename, int mode) {
+    MFile file;
 	_fixname(filename);
-	out = _Bfile_Open(fname, mode);
-	return out;
+	file.out = _Bfile_Open(fname, mode);
+    if(file.out > 0){
+        file.fd = file.out;
+        file.error = 0;
+        file.fpos = 0;
+    }else{
+        file.error = 1;
+    }
+    return file;
 }
 
-int mwrite(int fd, const void *data, int size) {
-	int out;
-	if(!fugue){
-		if(size%2) return -1;
+void mwrite(MFile *file, const void *data, int size) {
+	if(!fugue && size%2){
+        file->error = 1;
+        file->out = 1;
+		return;
 	}
-	out = _Bfile_Write(fd, data, size);
-	if(out < 0) return out-1;
-	return 0;
+	file->out = _Bfile_Write(file->fd, data, size);
+	if(file->out < 0){
+        file->error = 1;
+    }else{
+        file->error = 0;
+    }
 }
 
-int mread(int fd, void *data, int size, int whence) {
-	int out;
-	out = _Bfile_Read(fd, data, size, whence);
-	return out;
+void mread(MFile *file, void *data, int size, int whence) {
+    if(whence == MRCONTINUE) whence = file->fpos;
+	file->out = _Bfile_Read(file->fd, data, size, whence);
+    file->fpos += size;
+    if(file->out < 0){
+        file->error = 1;
+    }else{
+        file->error = 0;
+    }
 }
 
-int mclose(int fd) {
-	return _Bfile_Close(fd);
+void mclose(MFile *file) {
+	file->out = _Bfile_Close(file->fd);
+    if(file->out < 0){
+        file->error = 1;
+    }else{
+        file->error = 0;
+    }
+}
+
+void mseek(MFile *file, int pos) {
+    file->fpos = pos;
+    file->error = 0;
+    file->out = 0;
+}
+
+void msize(MFile *file) {
+    file->out = _BFile_Size(file->fd);
+    if(file->out < 0){
+        file->error = 1;
+    }else{
+        file->error = 0;
+    }
 }

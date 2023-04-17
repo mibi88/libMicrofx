@@ -31,6 +31,7 @@
 .global __Bfile_Open
 .global __Bfile_Read
 .global __Bfile_Close
+.global __Bfile_Size
 /* Tools */
 .global _itoa
 .global _malloc
@@ -127,6 +128,8 @@ __Bfile_Read:
 	syscall(0x432)
 __Bfile_Close:
 	syscall(0x042D)
+__Bfile_Size:
+	syscall(0x042F)
 /* Tools */
 _itoa:
 	syscall(0x541)
