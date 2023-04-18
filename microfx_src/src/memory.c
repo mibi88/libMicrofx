@@ -66,6 +66,7 @@ MFile mopen(const char *filename, int mode) {
         file.fd = file.out;
         file.error = 0;
         file.fpos = 0;
+		file.fwpos = 0;
     }else{
         file.error = 1;
     }
@@ -74,11 +75,19 @@ MFile mopen(const char *filename, int mode) {
 
 void mwrite(MFile *file, const void *data, int size) {
 	if(!fugue && size%2){
-        file->error = 1;
+        file->error = MODDSIZEWRITE;
         file->out = 1;
 		return;
 	}
+	msize(file);
+	if(file->fwpos + size >= file->out && !file->error){
+		file->out = MTOOBIGSIZE;
+		file->error = 1;
+		return;
+	}
 	file->out = _Bfile_Write(file->fd, data, size);
+	file->fpos += size;
+	file->fwpos += size;
 	if(file->out < 0){
         file->error = 1;
     }else{
@@ -88,6 +97,12 @@ void mwrite(MFile *file, const void *data, int size) {
 
 void mread(MFile *file, void *data, int size, int whence) {
     if(whence == MRCONTINUE) whence = file->fpos;
+	msize(file);
+	if(whence + size >= file->out && !file->error){
+		file->out = MTOOBIGSIZE;
+		file->error = 1;
+		return;
+	}
 	file->out = _Bfile_Read(file->fd, data, size, whence);
     file->fpos += size;
     if(file->out < 0){

@@ -273,6 +273,7 @@ void gmessagebox(int height, char *message);
 typedef struct {
     int fd; /* The file descriptor of the file */
     int fpos; /* The position in the file (0 after mopen) */
+    int fwpos; /* The writing position in the file */
     int error; /* Positive if there was an error, NULL if there was no one */
     int out; /* There was an error if this value is negative */
 } MFile;
@@ -280,6 +281,7 @@ typedef struct {
 /* Errors */
 
 enum {
+    MTOOBIGSIZE           = 2,
     MODDSIZEWRITE         = 1,
     MBF_ENTRYNOTFOUND     = -1,
     MBF_ILLEGALPARAM      = -2,
@@ -359,6 +361,7 @@ enum {
   output of the function.
 - To get the output of a function, read the int out in the MFile struct.
 - Errors are defined later on.
+- DO NOT MODIFY fwpos : MODIFING THIS VARIABLE MAY BREAK THINGS !
 */
 
 /* int mfugue(void);
@@ -408,7 +411,7 @@ MFile mopen(const char *filename, int mode);
 
 /* void mwrite(MFile *file, const void *data, int size);
 
-Writes size bytes of data to the file of MFile struct file that you can
+Writes size bytes of data to the file at fwpos of MFile struct file that you can
 initialise with mopen.
 As always, if there was an error, she's stored in MFile.
 */
@@ -434,8 +437,8 @@ void mclose(MFile *file);
 
 /* void mseek(MFile *file, int pos);
 
-Jump to the position pos in the file. No checks are made if the position is
-valid. Pass the MFile struct of the file.
+Jump to the position pos in the file. if the position is invalid, errors may
+occur later on. Pass the MFile struct of the file.
 */
 
 void mseek(MFile *file, int pos);
