@@ -1,5 +1,5 @@
-#ifndef KEYCODES_H
-#define KEYCODES_H
+#ifndef MICROFX_KEYCODES_H
+#define MICROFX_KEYCODES_H
 
 #define KCF1    79
 #define KCF2    69

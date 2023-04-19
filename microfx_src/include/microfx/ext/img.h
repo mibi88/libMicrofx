@@ -1,5 +1,5 @@
-#ifndef IMG_H
-#define IMG_H
+#ifndef MICROFX_IMG_H
+#define MICROFX_IMG_H
 
 enum {SNORMAL = 0, SINVERTED, STRANSP, SNOWHITE, SNOBLACK};
 
