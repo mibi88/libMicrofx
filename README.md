@@ -2,6 +2,8 @@
 
 Make very small add-ins.
 
+You can also write this name "libµfx" or "ufx".
+
 With this library you can easly make very small add-ins, but they are not as fast as add-ins made using gint, so you should use gint to write more complex add-ins. This library only provides support of the fx98xx series of CASIO monochrome calculators that support add-ins.
 
 ## Getting started

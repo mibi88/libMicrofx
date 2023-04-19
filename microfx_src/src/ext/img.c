@@ -1,4 +1,4 @@
-#include "../include/microfx/ext/img.h"
+#include "../../include/microfx/ext/img.h"
 #include <microfx/microfx.h>
 
 void simage(int sx, int sy, int w, int h, unsigned char *img, int mode) {
