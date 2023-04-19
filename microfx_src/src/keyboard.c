@@ -35,6 +35,7 @@ int kcheck(int key) {
 }
 
 int kgetkey(void){
+	/* Made a prgm like getkey in the same way as simlo described it. */
 	unsigned char buffer[12];
 	_Keyboard_PRGM_GetKey(buffer);
 	return (buffer[1] & 0x0F) * 10 + ((buffer[2] & 0xF0 ) >> 4);

@@ -375,6 +375,8 @@ int mfugue(void);
 /* int mremove(const char *filename);
 
 Removes the file filename. filename is a const char path for UNIX.
+If the returned int is negative there was an error (errors are listed above in
+an enum).
 */
 
 int mremove(const char *filename);
