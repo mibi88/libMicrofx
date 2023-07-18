@@ -19,6 +19,7 @@ VERSION = v.1.0
 all: $(BIN)
 	fxgxa --g1a -n $(NAME) -i $(ICON) --version="$(VERSION)" -o $(NAME).g1a build/$(BIN)
 	sh-elf-objdump -h $(BUILD)/$(ELF)
+	rm -fr $(BUILD)
 
 $(BIN): $(ELF)
 	sh-elf-objcopy -O binary build/$(ELF) build/$(BIN) -R .bss

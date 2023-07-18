@@ -23,6 +23,7 @@ all: $(OBJ) | $(OUT_DIR)/
 	$(AR) rsv $(OUT_DIR)/$(OUT) $(addprefix build/, $(notdir $(OBJ)))
 	cp --recursive include $(OUT_DIR)/
 	cp src/fx98xx.ld $(OUT_DIR)/
+	rm -fr $(BUILD)
 
 $(BUILD)/%.o: src/% | $(BUILD)/
 	$(CC) -c $< -o build/$(notdir $@) $(CFLAGS)
